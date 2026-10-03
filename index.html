@@ -190,4 +190,432 @@
 
     // =========================
     // حاسبة الربح والخسارة
-    // =================
+    // =========================
+
+    function profitLoss() {
+
+      let revenue =
+        Number(document.getElementById("revenue").value);
+
+      let expenses =
+        Number(document.getElementById("expenses").value);
+
+      let profit = revenue - expenses;
+
+      document.getElementById("profitResult").innerText =
+        "الربح = " + profit.toFixed(2) + " ريال";
+    }
+
+
+    // =========================
+    // هامش الربح
+    // =========================
+
+    function profitMargin() {
+
+      let profit =
+        Number(document.getElementById("netProfit").value);
+
+      let revenue =
+        Number(document.getElementById("marginRevenue").value);
+
+      if (revenue === 0) {
+
+        document.getElementById("marginResult").innerText =
+          "يرجى إدخال إيرادات أكبر من صفر";
+
+        return;
+      }
+
+      let margin = (profit / revenue) * 100;
+
+      document.getElementById("marginResult").innerText =
+        "هامش الربح = " + margin.toFixed(2) + "%";
+    }
+
+
+    // =========================
+    // الخصم
+    // =========================
+
+    function discountCalc() {
+
+      let price =
+        Number(document.getElementById("originalPrice").value);
+
+      let discount =
+        Number(document.getElementById("discount").value);
+
+      let discountAmount =
+        price * (discount / 100);
+
+      let finalPrice =
+        price - discountAmount;
+
+      document.getElementById("discountResult").innerText =
+        "مبلغ الخصم = " +
+        discountAmount.toFixed(2) +
+        " ريال | السعر بعد الخصم = " +
+        finalPrice.toFixed(2) +
+        " ريال";
+    }
+
+
+    // =========================
+    // نقطة التعادل
+    // =========================
+
+    function breakEven() {
+
+      let fixed =
+        Number(document.getElementById("fixedCosts").value);
+
+      let selling =
+        Number(document.getElementById("sellingPrice").value);
+
+      let variable =
+        Number(document.getElementById("variableCost").value);
+
+      let contribution =
+        selling - variable;
+
+      if (contribution <= 0) {
+
+        document.getElementById("breakEvenResult").innerText =
+          "لا يمكن حساب نقطة التعادل بهذه القيم";
+
+        return;
+      }
+
+      let units =
+        fixed / contribution;
+
+      document.getElementById("breakEvenResult").innerText =
+        "نقطة التعادل = " +
+        units.toFixed(2) +
+        " وحدة";
+    }
+
+
+    // =========================
+    // الأسئلة المحاسبية
+    // =========================
+
+    const questions = [
+
+      {
+        question:
+          "اشترت المنشأة بضاعة نقدًا بمبلغ 2,000 ريال. ما الحساب الذي يُسجّل مدينًا؟",
+
+        options:
+          ["الصندوق", "المبيعات", "المشتريات", "رأس المال"],
+
+        answer: 2,
+
+        explanation:
+          "عند شراء البضاعة، يُسجّل حساب المشتريات مدينًا، والصندوق دائنًا."
+      },
+
+
+      {
+        question:
+          "باعت المنشأة بضاعة نقدًا بمبلغ 3,000 ريال. ما الحساب الذي يُسجّل دائنًا؟",
+
+        options:
+          ["الصندوق", "المبيعات", "المصروفات", "المشتريات"],
+
+        answer: 1,
+
+        explanation:
+          "عند البيع نقدًا، يكون حساب المبيعات دائنًا."
+      },
+
+
+      {
+        question:
+          "دفعت المنشأة إيجار المحل نقدًا. ما الحساب الذي يُسجّل مدينًا؟",
+
+        options:
+          ["الإيجار", "الصندوق", "المبيعات", "رأس المال"],
+
+        answer: 0,
+
+        explanation:
+          "مصروف الإيجار يُسجّل مدينًا عند دفعه."
+      },
+
+
+      {
+        question:
+          "دفعت المنشأة رواتب الموظفين نقدًا. ما الحساب المدين؟",
+
+        options:
+          ["الصندوق", "الرواتب", "المبيعات", "رأس المال"],
+
+        answer: 1,
+
+        explanation:
+          "مصروف الرواتب يُسجّل مدينًا."
+      },
+
+
+      {
+        question:
+          "اشترت المنشأة معدات نقدًا. ما الحساب الذي يُسجّل مدينًا؟",
+
+        options:
+          ["المعدات", "الصندوق", "المبيعات", "الإيرادات"],
+
+        answer: 0,
+
+        explanation:
+          "المعدات أصل، وعند شرائها تُسجّل مدينة."
+      },
+
+
+      {
+        question:
+          "استلمت المنشأة مبلغًا نقديًا من أحد العملاء. ما الحساب الذي يزيد؟",
+
+        options:
+          ["الصندوق", "المصروفات", "المبيعات فقط", "رأس المال"],
+
+        answer: 0,
+
+        explanation:
+          "عند استلام النقدية، يزيد رصيد الصندوق."
+      },
+
+
+      {
+        question:
+          "سددت المنشأة مبلغًا مستحقًا لأحد الموردين. ما الحساب الذي ينخفض؟",
+
+        options:
+          ["الصندوق", "الموردون", "المبيعات", "المعدات"],
+
+        answer: 1,
+
+        explanation:
+          "عند سداد المورد، ينخفض رصيد حساب الموردين."
+      },
+
+
+      {
+        question:
+          "أودعت المنشأة مبلغًا نقديًا في البنك. ما الحساب الذي يزيد؟",
+
+        options:
+          ["البنك", "المصروفات", "المبيعات", "الموردون"],
+
+        answer: 0,
+
+        explanation:
+          "عند الإيداع، يزيد رصيد حساب البنك."
+      },
+
+
+      {
+        question:
+          "سحب صاحب المنشأة مبلغًا نقديًا للاستخدام الشخصي. ما الحساب المدين؟",
+
+        options:
+          ["المسحوبات الشخصية", "الصندوق", "المبيعات", "الإيرادات"],
+
+        answer: 0,
+
+        explanation:
+          "المسحوبات الشخصية تُسجّل مدينة، والصندوق دائن."
+      },
+
+
+      {
+        question:
+          "استثمر صاحب المنشأة مبلغًا نقديًا في المنشأة. ما الحساب الذي يُسجّل دائنًا؟",
+
+        options:
+          ["الصندوق", "رأس المال", "المصروفات", "المشتريات"],
+
+        answer: 1,
+
+        explanation:
+          "عند استثمار المالك، يزيد رأس المال ويُسجّل دائنًا."
+      }
+
+    ];
+
+
+    let currentQuestion = 0;
+    let score = 0;
+
+
+    // =========================
+    // عرض السؤال
+    // =========================
+
+    function showQuestion() {
+
+      let q = questions[currentQuestion];
+
+      document.getElementById("questionNumber").innerText =
+        "السؤال " +
+        (currentQuestion + 1) +
+        " من " +
+        questions.length;
+
+      document.getElementById("question").innerText =
+        q.question;
+
+      document.getElementById("answerResult").innerText = "";
+
+      document.getElementById("nextButton").style.display =
+        "none";
+
+      let optionsDiv =
+        document.getElementById("options");
+
+      optionsDiv.innerHTML = "";
+
+
+      q.options.forEach(function(option, index) {
+
+        let button =
+          document.createElement("button");
+
+        button.innerText = option;
+
+        button.className = "option";
+
+        button.onclick = function() {
+
+          checkAnswer(index, button);
+
+        };
+
+        optionsDiv.appendChild(button);
+
+      });
+
+    }
+
+
+    // =========================
+    // التحقق من الإجابة
+    // =========================
+
+    function checkAnswer(selected, button) {
+
+      let q = questions[currentQuestion];
+
+      let buttons =
+        document.querySelectorAll(".option");
+
+      buttons.forEach(function(btn) {
+
+        btn.disabled = true;
+
+      });
+
+
+      if (selected === q.answer) {
+
+        button.classList.add("correct");
+
+        score++;
+
+        document.getElementById("answerResult").innerText =
+          "✅ إجابة صحيحة! " +
+          q.explanation;
+
+      } else {
+
+        button.classList.add("wrong");
+
+        buttons[q.answer].classList.add("correct");
+
+        document.getElementById("answerResult").innerText =
+          "❌ إجابة غير صحيحة. " +
+          "الإجابة الصحيحة هي: " +
+          q.options[q.answer] +
+          ". " +
+          q.explanation;
+
+      }
+
+
+      document.getElementById("nextButton").style.display =
+        "block";
+
+    }
+
+
+    // =========================
+    // السؤال التالي
+    // =========================
+
+    function nextQuestion() {
+
+      currentQuestion++;
+
+      if (currentQuestion >= questions.length) {
+
+        document.getElementById("questionNumber").innerText =
+          "🎉 انتهت الأسئلة";
+
+        document.getElementById("question").innerText =
+          "أحسنت! لقد أكملت جميع التمارين.";
+
+        document.getElementById("options").innerHTML = "";
+
+        document.getElementById("answerResult").innerText =
+          "نتيجتك: " +
+          score +
+          " من " +
+          questions.length;
+
+        document.getElementById("nextButton").innerText =
+          "🔄 إعادة الاختبار";
+
+        document.getElementById("nextButton").style.display =
+          "block";
+
+        document.getElementById("nextButton").onclick =
+          restartQuiz;
+
+      } else {
+
+        showQuestion();
+
+      }
+
+    }
+
+
+    // =========================
+    // إعادة الاختبار
+    // =========================
+
+    function restartQuiz() {
+
+      currentQuestion = 0;
+
+      score = 0;
+
+      document.getElementById("nextButton").innerText =
+        "🔄 تمرين جديد";
+
+      document.getElementById("nextButton").onclick =
+        nextQuestion;
+
+      showQuestion();
+
+    }
+
+
+    // تشغيل أول سؤال
+    showQuestion();
+
+  </script>
+
+</body>
+</html>
