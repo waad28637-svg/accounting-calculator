@@ -1,0 +1,50 @@
+document.getElementById("netProfit").value);
+    let revenue = Number(document.getElementById("totalRevenue").value);
+
+    if (revenue <= 0) {
+        document.getElementById("marginResult").innerHTML =
+        "أدخل إيرادات صحيحة";
+        return;
+    }
+
+    let margin = (profit / revenue) * 100;
+
+    document.getElementById("marginResult").innerHTML =
+    "📈 هامش الربح: " + margin.toFixed(2) + "%";
+}
+
+function calculateDiscount() {
+    let price = Number(document.getElementById("price").value);
+    let discount = Number(document.getElementById("discount").value);
+
+    let discountValue = price * (discount / 100);
+    let finalPrice = price - discountValue;
+
+    document.getElementById("discountResult").innerHTML =
+    "💵 قيمة الخصم: " + discountValue.toFixed(2) +
+    " ريال<br>السعر بعد الخصم: " + finalPrice.toFixed(2) + " ريال";
+}
+
+function calculateBreakEven() {
+    let fixed = Number(document.getElementById("fixedCosts").value);
+    let selling = Number(document.getElementById("sellingPrice").value);
+    let variable = Number(document.getElementById("variableCost").value);
+
+    let difference = selling - variable;
+
+    if (difference <= 0) {
+        document.getElementById("breakEvenResult").innerHTML =
+        "⚠️ يجب أن يكون سعر البيع أكبر من التكلفة المتغيرة";
+        return;
+    }
+
+    let units = fixed / difference;
+
+    document.getElementById("breakEvenResult").innerHTML =
+    "⚖️ نقطة التعادل: " + units.toFixed(2) + " وحدة";
+}
+
+</script>
+
+</body>
+</html>
