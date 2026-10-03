@@ -1,213 +1,264 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الحاسبة المحاسبية الذكية</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المختبر المحاسبي</title>
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f7f9;
-    margin: 0;
-    padding: 20px;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
 
-.container {
-    max-width: 700px;
-    margin: auto;
-}
+    h1 {
+      text-align: center;
+      color: #1f4e79;
+    }
 
-header {
-    background: #173f5f;
-    color: white;
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-}
+    .card {
+      background: white;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 3px 10px #ccc;
+    }
 
-.card {
-    background: white;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 15px;
-    box-shadow: 0 3px 10px #ccc;
-}
+    h2 {
+      color: #1f4e79;
+    }
 
-h2 {
-    color: #173f5f;
-}
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 15px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-}
+    button {
+      background: #1f4e79;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+    }
 
-button {
-    width: 100%;
-    padding: 13px;
-    background: #173f5f;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-}
+    button:hover {
+      opacity: 0.9;
+    }
 
-.result {
-    margin-top: 15px;
-    padding: 15px;
-    background: #eef6f8;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-}
-</style>
+    .result {
+      margin-top: 15px;
+      padding: 12px;
+      background: #eef5fb;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      background: #eee;
+      color: #222;
+    }
+
+    .correct {
+      background: #d4edda !important;
+      color: #155724 !important;
+    }
+
+    .wrong {
+      background: #f8d7da !important;
+      color: #721c24 !important;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <h1>🧮 المختبر المحاسبي</h1>
 
-<header>
-<h1>🧮 الحاسبة المحاسبية الذكية</h1>
-<p>أداة بسيطة للحسابات المحاسبية</p>
-</header>
+  <!-- الربح والخسارة -->
+  <div class="card">
+    <h2>💰 حاسبة الربح والخسارة</h2>
 
-<div class="card">
-<h2>💰 حاسبة الربح والخسارة</h2>
+    <label>الإيرادات</label>
+    <input type="number" id="revenue" placeholder="مثال: 10000">
 
-<label>الإيرادات</label>
-<input type="number" id="revenue">
+    <label>المصروفات</label>
+    <input type="number" id="expenses" placeholder="مثال: 6000">
 
-<label>المصروفات</label>
-<input type="number" id="expenses">
+    <button onclick="profitLoss()">احسب</button>
 
-<button onclick="profit()">احسب</button>
+    <div class="result" id="profitResult"></div>
+  </div>
 
-<div class="result" id="profitResult">النتيجة ستظهر هنا</div>
-</div>
 
-<div class="card">
-<h2>📊 حاسبة هامش الربح</h2>
+  <!-- هامش الربح -->
+  <div class="card">
+    <h2>📊 حاسبة هامش الربح</h2>
 
-<label>صافي الربح</label>
-<input type="number" id="netProfit">
+    <label>صافي الربح</label>
+    <input type="number" id="netProfit" placeholder="مثال: 4000">
 
-<label>الإيرادات</label>
-<input type="number" id="totalRevenue">
+    <label>الإيرادات</label>
+    <input type="number" id="marginRevenue" placeholder="مثال: 10000">
 
-<button onclick="margin()">احسب هامش الربح</button>
+    <button onclick="profitMargin()">احسب</button>
 
-<div class="result" id="marginResult">النتيجة ستظهر هنا</div>
-</div>
+    <div class="result" id="marginResult"></div>
+  </div>
 
-<div class="card">
-<h2>🏷️ حاسبة الخصم</h2>
 
-<label>السعر الأصلي</label>
-<input type="number" id="price">
+  <!-- الخصم -->
+  <div class="card">
+    <h2>🏷️ حاسبة الخصم</h2>
 
-<label>نسبة الخصم %</label>
-<input type="number" id="discount">
+    <label>السعر الأصلي</label>
+    <input type="number" id="originalPrice" placeholder="مثال: 1000">
 
-<button onclick="discountCalc()">احسب</button>
+    <label>الخصم %</label>
+    <input type="number" id="discount" placeholder="مثال: 10">
 
-<div class="result" id="discountResult">النتيجة ستظهر هنا</div>
-</div>
+    <button onclick="discountCalc()">احسب</button>
 
-<div class="card">
-<h2>⚖️ حاسبة نقطة التعادل</h2>
+    <div class="result" id="discountResult"></div>
+  </div>
 
-<label>التكاليف الثابتة</label>
-<input type="number" id="fixed">
 
-<label>سعر بيع الوحدة</label>
-<input type="number" id="selling">
+  <!-- نقطة التعادل -->
+  <div class="card">
+    <h2>⚖️ حاسبة نقطة التعادل</h2>
 
-<label>التكلفة المتغيرة للوحدة</label>
-<input type="number" id="variable">
+    <label>التكاليف الثابتة</label>
+    <input type="number" id="fixedCosts" placeholder="مثال: 5000">
 
-<button onclick="breakEven()">احسب</button>
+    <label>سعر بيع الوحدة</label>
+    <input type="number" id="sellingPrice" placeholder="مثال: 100">
 
-<div class="result" id="breakResult">النتيجة ستظهر هنا</div>
-</div>
+    <label>التكلفة المتغيرة للوحدة</label>
+    <input type="number" id="variableCost" placeholder="مثال: 50">
 
-</div>
+    <button onclick="breakEven()">احسب</button>
 
-<script>
+    <div class="result" id="breakEvenResult"></div>
+  </div>
 
-function profit() {
-    let revenue = Number(document.getElementById("revenue").value);
-    let expenses = Number(document.getElementById("expenses").value);
-    let result = revenue - expenses;
 
-    if (result > 0) {
-        document.getElementById("profitResult").innerHTML =
-        "✅ صافي الربح: " + result.toFixed(2) + " ريال";
-    } else if (result < 0) {
-        document.getElementById("profitResult").innerHTML =
-        "❌ صافي الخسارة: " + Math.abs(result).toFixed(2) + " ريال";
-    } else {
-        document.getElementById("profitResult").innerHTML =
-        "⚖️ لا يوجد ربح أو خسارة";
+  <!-- التمرين المحاسبي -->
+  <div class="card">
+    <h2>📝 تمرين محاسبي تفاعلي</h2>
+
+    <p>
+      اشترت المنشأة بضاعة نقدًا بمبلغ <strong>2,000 ريال</strong>.
+      <br><br>
+      ما الحساب الذي يُسجّل <strong>مدينًا</strong>؟
+    </p>
+
+    <button class="option" onclick="answer(this, false)">الصندوق</button>
+    <button class="option" onclick="answer(this, false)">المبيعات</button>
+    <button class="option" onclick="answer(this, true)">المشتريات</button>
+    <button class="option" onclick="answer(this, false)">رأس المال</button>
+
+    <div class="result" id="answerResult"></div>
+  </div>
+
+
+  <script>
+
+    function profitLoss() {
+      let revenue = Number(document.getElementById("revenue").value);
+      let expenses = Number(document.getElementById("expenses").value);
+
+      let profit = revenue - expenses;
+
+      document.getElementById("profitResult").innerText =
+        "الربح = " + profit.toFixed(2) + " ريال";
     }
-}
 
-function margin() {
-    let profit = Number(document.getElementById("netProfit").value);
-    let revenue = Number(document.getElementById("totalRevenue").value);
 
-    if (revenue <= 0) {
-        document.getElementById("marginResult").innerHTML =
-        "⚠️ أدخل الإيرادات";
+    function profitMargin() {
+      let profit = Number(document.getElementById("netProfit").value);
+      let revenue = Number(document.getElementById("marginRevenue").value);
+
+      if (revenue === 0) {
+        document.getElementById("marginResult").innerText =
+          "يرجى إدخال إيرادات أكبر من صفر";
         return;
+      }
+
+      let margin = (profit / revenue) * 100;
+
+      document.getElementById("marginResult").innerText =
+        "هامش الربح = " + margin.toFixed(2) + "%";
     }
 
-    let result = (profit / revenue) * 100;
 
-    document.getElementById("marginResult").innerHTML =
-    "📈 هامش الربح: " + result.toFixed(2) + "%";
-}
+    function discountCalc() {
+      let price = Number(document.getElementById("originalPrice").value);
+      let discount = Number(document.getElementById("discount").value);
 
-function discountCalc() {
-    let price = Number(document.getElementById("price").value);
-    let discount = Number(document.getElementById("discount").value);
+      let discountAmount = price * (discount / 100);
+      let finalPrice = price - discountAmount;
 
-    let value = price * discount / 100;
-    let finalPrice = price - value;
+      document.getElementById("discountResult").innerText =
+        "مبلغ الخصم = " + discountAmount.toFixed(2) +
+        " ريال | السعر بعد الخصم = " + finalPrice.toFixed(2) + " ريال";
+    }
 
-    document.getElementById("discountResult").innerHTML =
-    "قيمة الخصم: " + value.toFixed(2) +
-    " ريال<br>السعر بعد الخصم: " +
-    finalPrice.toFixed(2) + " ريال";
-}
 
-function breakEven() {
-    let fixed = Number(document.getElementById("fixed").value);
-    let selling = Number(document.getElementById("selling").value);
-    let variable = Number(document.getElementById("variable").value);
+    function breakEven() {
+      let fixed = Number(document.getElementById("fixedCosts").value);
+      let selling = Number(document.getElementById("sellingPrice").value);
+      let variable = Number(document.getElementById("variableCost").value);
 
-    let difference = selling - variable;
+      let contribution = selling - variable;
 
-    if (difference <= 0) {
-        document.getElementById("breakResult").innerHTML =
-        "⚠️ يجب أن يكون سعر البيع أكبر من التكلفة المتغيرة";
+      if (contribution <= 0) {
+        document.getElementById("breakEvenResult").innerText =
+          "لا يمكن حساب نقطة التعادل بهذه القيم";
         return;
+      }
+
+      let units = fixed / contribution;
+
+      document.getElementById("breakEvenResult").innerText =
+        "نقطة التعادل = " + units.toFixed(2) + " وحدة";
     }
 
-    let units = fixed / difference;
 
-    document.getElementById("breakResult").innerHTML =
-    "⚖️ نقطة التعادل: " + units.toFixed(2) + " وحدة";
-}
+    function answer(button, correct) {
+      let buttons = document.querySelectorAll(".option");
 
-</script>
+      buttons.forEach(function(btn) {
+        btn.disabled = true;
+      });
+
+      if (correct) {
+        button.classList.add("correct");
+
+        document.getElementById("answerResult").innerText =
+          "✅ إجابة صحيحة! المشتريات تُسجّل مدينة عند شراء البضاعة.";
+      } else {
+        button.classList.add("wrong");
+
+        document.getElementById("answerResult").innerText =
+          "❌ إجابة غير صحيحة. الإجابة الصحيحة هي: المشتريات.";
+      }
+    }
+
+  </script>
 
 </body>
     </html>
