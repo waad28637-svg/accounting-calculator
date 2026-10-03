@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -53,10 +54,6 @@
       margin: 5px;
     }
 
-    button:hover {
-      opacity: 0.9;
-    }
-
     .result {
       margin-top: 15px;
       padding: 12px;
@@ -82,12 +79,25 @@
       background: #f8d7da !important;
       color: #721c24 !important;
     }
+
+    .next {
+      display: none;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 18px;
+      color: #1f4e79;
+    }
   </style>
 </head>
 
 <body>
 
   <h1>🧮 المختبر المحاسبي</h1>
+
 
   <!-- الربح والخسارة -->
   <div class="card">
@@ -156,109 +166,28 @@
   </div>
 
 
-  <!-- التمرين المحاسبي -->
+  <!-- التمارين -->
   <div class="card">
-    <h2>📝 تمرين محاسبي تفاعلي</h2>
 
-    <p>
-      اشترت المنشأة بضاعة نقدًا بمبلغ <strong>2,000 ريال</strong>.
-      <br><br>
-      ما الحساب الذي يُسجّل <strong>مدينًا</strong>؟
-    </p>
+    <h2>📝 التمارين المحاسبية</h2>
 
-    <button class="option" onclick="answer(this, false)">الصندوق</button>
-    <button class="option" onclick="answer(this, false)">المبيعات</button>
-    <button class="option" onclick="answer(this, true)">المشتريات</button>
-    <button class="option" onclick="answer(this, false)">رأس المال</button>
+    <div class="score" id="questionNumber"></div>
+
+    <p id="question"></p>
+
+    <div id="options"></div>
 
     <div class="result" id="answerResult"></div>
+
+    <button class="next" id="nextButton" onclick="nextQuestion()">
+      🔄 تمرين جديد
+    </button>
+
   </div>
 
 
   <script>
 
-    function profitLoss() {
-      let revenue = Number(document.getElementById("revenue").value);
-      let expenses = Number(document.getElementById("expenses").value);
-
-      let profit = revenue - expenses;
-
-      document.getElementById("profitResult").innerText =
-        "الربح = " + profit.toFixed(2) + " ريال";
-    }
-
-
-    function profitMargin() {
-      let profit = Number(document.getElementById("netProfit").value);
-      let revenue = Number(document.getElementById("marginRevenue").value);
-
-      if (revenue === 0) {
-        document.getElementById("marginResult").innerText =
-          "يرجى إدخال إيرادات أكبر من صفر";
-        return;
-      }
-
-      let margin = (profit / revenue) * 100;
-
-      document.getElementById("marginResult").innerText =
-        "هامش الربح = " + margin.toFixed(2) + "%";
-    }
-
-
-    function discountCalc() {
-      let price = Number(document.getElementById("originalPrice").value);
-      let discount = Number(document.getElementById("discount").value);
-
-      let discountAmount = price * (discount / 100);
-      let finalPrice = price - discountAmount;
-
-      document.getElementById("discountResult").innerText =
-        "مبلغ الخصم = " + discountAmount.toFixed(2) +
-        " ريال | السعر بعد الخصم = " + finalPrice.toFixed(2) + " ريال";
-    }
-
-
-    function breakEven() {
-      let fixed = Number(document.getElementById("fixedCosts").value);
-      let selling = Number(document.getElementById("sellingPrice").value);
-      let variable = Number(document.getElementById("variableCost").value);
-
-      let contribution = selling - variable;
-
-      if (contribution <= 0) {
-        document.getElementById("breakEvenResult").innerText =
-          "لا يمكن حساب نقطة التعادل بهذه القيم";
-        return;
-      }
-
-      let units = fixed / contribution;
-
-      document.getElementById("breakEvenResult").innerText =
-        "نقطة التعادل = " + units.toFixed(2) + " وحدة";
-    }
-
-
-    function answer(button, correct) {
-      let buttons = document.querySelectorAll(".option");
-
-      buttons.forEach(function(btn) {
-        btn.disabled = true;
-      });
-
-      if (correct) {
-        button.classList.add("correct");
-
-        document.getElementById("answerResult").innerText =
-          "✅ إجابة صحيحة! المشتريات تُسجّل مدينة عند شراء البضاعة.";
-      } else {
-        button.classList.add("wrong");
-
-        document.getElementById("answerResult").innerText =
-          "❌ إجابة غير صحيحة. الإجابة الصحيحة هي: المشتريات.";
-      }
-    }
-
-  </script>
-
-</body>
-    </html>
+    // =========================
+    // حاسبة الربح والخسارة
+    // =================
